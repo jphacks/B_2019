@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using UnityEngine;
 
 //
 //DLLをインポートするのでWindowsアプリでしか動かない
@@ -63,6 +64,9 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
     private static extern IntPtr GetActiveWindow();
 
     [DllImport("user32.dll")]
+    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr handle,int x,int y,int w,int h, uint flag);
+
+    [DllImport("user32.dll")]
     private static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
 
     [DllImport("Dwmapi.dll")]
@@ -79,7 +83,7 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
     const uint WS_SYSMENU = 0x80000;//
 
 
-    const uint WS_OVERLAPPEDWINDOW=0x00CF0000;
+    const uint WS_OVERLAPPEDWINDOW = 0x00CF0000;
 
     #region Method
 
@@ -88,17 +92,19 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
 
     protected virtual void Start()
     {
-        // NOTE:
-        // http://chokuto.ifdef.jp/urawaza/prm/window_style.html
-        uint windowState = WS_POPUP | WS_VISIBLE;
-
-#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
-
+        var windowHandle = IntPtr.Zero;
 
         // NOTE:
         // https://msdn.microsoft.com/ja-jp/library/cc410861.aspx
+#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
+        windowHandle = GetActiveWindow();
+#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
 
-        var windowHandle = GetActiveWindow();
+        if (windowHandle == IntPtr.Zero)
+        {
+            Debug.LogError("window handle not found");
+            return;
+        }
 
         // NOTE:
         // https://msdn.microsoft.com/ja-jp/library/cc411203.aspx
@@ -106,7 +112,20 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
         // "SetWindowLong" is used to update window parameter.
         // The arguments shows (target, parameter, value).
 
-        SetWindowLong(windowHandle, GWL_STYLE, windowState);
+        // NOTE:
+        // http://chokuto.ifdef.jp/urawaza/prm/window_style.html
+
+#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
+        SetWindowLong(windowHandle, GWL_STYLE,  WS_POPUP | WS_VISIBLE);
+
+        IntPtr HWND_TOPMOST = new IntPtr(-1);
+        const uint SWP_NOSIZE = 0x0001;
+        const uint SWP_NOMOVE = 0x0002;
+        const uint SWP_NOACTIVE = 0x0010;
+        const uint SWP_SHOWWINDOW = 0x0040;
+
+        SetWindowPos(windowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVE | SWP_SHOWWINDOW);
+#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
 
         // NOTE:
         // https://msdn.microsoft.com/ja-jp/library/windows/desktop/aa969512(v=vs.85).aspx
@@ -122,6 +141,7 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
         {
             cxLeftWidth = -1
         };
+#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
 
         DwmExtendFrameIntoClientArea(windowHandle, ref margins);
 
@@ -132,34 +152,40 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
 
     public void SetWindowMode(bool flag)
     {
+
+        // NOTE:
+        // https://msdn.microsoft.com/ja-jp/library/cc410861.aspx
+
+        var windowHandle = IntPtr.Zero;
 #if !UNITY_EDITOR && UNITY_STANDALONE_WIN
-
-            // NOTE:
-            // https://msdn.microsoft.com/ja-jp/library/cc410861.aspx
-
-            var windowHandle = GetActiveWindow();
-
-            // NOTE:
-            // https://msdn.microsoft.com/ja-jp/library/cc411203.aspx
-            // 
-            // "SetWindowLong" is used to update window parameter.
-            // The arguments shows (target, parameter, value).
-            
-        uint windowState = WS_POPUP | WS_VISIBLE;
-        if (flag)
+        windowHandle = GetActiveWindow();
+#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
+        if (windowHandle == IntPtr.Zero)
         {
-        windowState=WS_VISIBLE|WS_BORDER|WS_DLGFRAME|WS_THICKFRAME|WS_SYSMENU;
-        }
-        else{
-        windowState= WS_POPUP | WS_VISIBLE;
+            Debug.LogError("window handle not found.");
+            return;
         }
 
+        // NOTE:
+        // https://msdn.microsoft.com/ja-jp/library/cc411203.aspx
+        // 
+        // "SetWindowLong" is used to update window parameter.
+        // The arguments shows (target, parameter, value).
+
+        uint windowState = flag ? 
+            WS_POPUP | WS_VISIBLE :
+            WS_VISIBLE | WS_BORDER | WS_DLGFRAME | WS_THICKFRAME | WS_SYSMENU;
+
+#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
         SetWindowLong(windowHandle, GWL_STYLE, windowState);
+#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
+
         MARGINS margins = new MARGINS()
         {
             cxLeftWidth = -1
         };
 
+#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
         DwmExtendFrameIntoClientArea(windowHandle, ref margins);
 #endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
     }
