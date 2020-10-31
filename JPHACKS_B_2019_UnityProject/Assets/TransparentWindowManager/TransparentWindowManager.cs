@@ -5,12 +5,12 @@ using UnityEngine;
 //
 //DLLをインポートするのでWindowsアプリでしか動かない
 //DLLのリファレンスはmicrosoftのサイトから消えてる模様
-
+//https://qiita.com/wakagomo/items/6e83019481d7cd326e72
 
 public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindowManager>
 {
 
-
+    [SerializeField] bool transparentOnStart = true;
 
 
     #region Enum
@@ -81,9 +81,13 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
     const uint WS_DLGFRAME = 0x400000;//メニューバーを描画（閉じるボタンなどはなし）透過はできなくなる
     const uint WS_THICKFRAME = 0x40000;//サイズ変更境界
     const uint WS_SYSMENU = 0x80000;//
-
-
     const uint WS_OVERLAPPEDWINDOW = 0x00CF0000;
+
+    static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+    const uint SWP_NOSIZE = 0x0001;
+    const uint SWP_NOMOVE = 0x0002;
+    const uint SWP_NOACTIVE = 0x0010;
+    const uint SWP_SHOWWINDOW = 0x0040;
 
     #region Method
 
@@ -92,74 +96,26 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
 
     protected virtual void Start()
     {
-        var windowHandle = IntPtr.Zero;
-
-        // NOTE:
-        // https://msdn.microsoft.com/ja-jp/library/cc410861.aspx
-#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
-        windowHandle = GetActiveWindow();
-#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
-
-        if (windowHandle == IntPtr.Zero)
+        if (transparentOnStart)
         {
-            Debug.LogError("window handle not found");
-            return;
+            SetTransparent(true);
         }
-
-        // NOTE:
-        // https://msdn.microsoft.com/ja-jp/library/cc411203.aspx
-        // 
-        // "SetWindowLong" is used to update window parameter.
-        // The arguments shows (target, parameter, value).
-
-        // NOTE:
-        // http://chokuto.ifdef.jp/urawaza/prm/window_style.html
-
-#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
-        SetWindowLong(windowHandle, GWL_STYLE,  WS_POPUP | WS_VISIBLE);
-
-        IntPtr HWND_TOPMOST = new IntPtr(-1);
-        const uint SWP_NOSIZE = 0x0001;
-        const uint SWP_NOMOVE = 0x0002;
-        const uint SWP_NOACTIVE = 0x0010;
-        const uint SWP_SHOWWINDOW = 0x0040;
-
-        SetWindowPos(windowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVE | SWP_SHOWWINDOW);
-#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
-
-        // NOTE:
-        // https://msdn.microsoft.com/ja-jp/library/windows/desktop/aa969512(v=vs.85).aspx
-        // https://msdn.microsoft.com/ja-jp/library/windows/desktop/bb773244(v=vs.85).aspx
-        // 
-        // DwmExtendFrameIntoClientArea will spread the effects
-        // which attached to window frame to contents area.
-        // So if the frame is transparent, the contents area gets also transparent.
-        // MARGINS is structure to set the spread range.
-        // When set -1 to MARGIN, it means spread range is all of the contents area.
-
-        MARGINS margins = new MARGINS()
-        {
-            cxLeftWidth = -1
-        };
-#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
-
-        DwmExtendFrameIntoClientArea(windowHandle, ref margins);
-
-#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
     }
 
     #endregion Method
 
-    public void SetWindowMode(bool flag)
+    public void SetTransparent(bool flag)
     {
 
+#if UNITY_EDITOR || !UNITY_STANDALONE_WIN
+        Debug.LogWarning("TransparentWindowManager does not work. This is for windows app.");
+#else
         // NOTE:
         // https://msdn.microsoft.com/ja-jp/library/cc410861.aspx
-
         var windowHandle = IntPtr.Zero;
-#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
+
         windowHandle = GetActiveWindow();
-#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
+
         if (windowHandle == IntPtr.Zero)
         {
             Debug.LogError("window handle not found.");
@@ -172,22 +128,25 @@ public class TransparentWindowManager : SingletonMonoBehaviour<TransparentWindow
         // "SetWindowLong" is used to update window parameter.
         // The arguments shows (target, parameter, value).
 
-        uint windowState = flag ? 
-            WS_POPUP | WS_VISIBLE :
-            WS_VISIBLE | WS_BORDER | WS_DLGFRAME | WS_THICKFRAME | WS_SYSMENU;
+        uint windowState = GetWindowState(flag);
 
-#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
         SetWindowLong(windowHandle, GWL_STYLE, windowState);
-#endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
+        SetWindowPos(windowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVE | SWP_SHOWWINDOW);
 
         MARGINS margins = new MARGINS()
         {
             cxLeftWidth = -1
         };
 
-#if !UNITY_EDITOR && UNITY_STANDALONE_WIN
         DwmExtendFrameIntoClientArea(windowHandle, ref margins);
 #endif // !UNITY_EDITOR && UNITY_STANDALONE_WIN
+    }
+
+    uint GetWindowState(bool isTransparented)
+    {
+      return isTransparented ?
+            WS_POPUP | WS_VISIBLE :
+            WS_VISIBLE | WS_BORDER | WS_DLGFRAME | WS_THICKFRAME | WS_SYSMENU;
     }
 
 
