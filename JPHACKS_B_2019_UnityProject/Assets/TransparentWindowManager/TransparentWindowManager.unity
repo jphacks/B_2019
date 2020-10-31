@@ -2405,6 +2405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1619861801}
   - component: {fileID: 1619861800}
+  - component: {fileID: 1619861797}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2412,6 +2413,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1619861797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619861796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95bc4df4ba91924e8861da3c19950ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1619861800}
+  dragButton: 0
+  rotationSpeed: {x: 0.15, y: 0.15}
+  reverse: 1
+  moveButton: 2
+  moveSpeed: {x: 0.01, y: 0.01}
+  zoomSpeed: 1
 --- !u!20 &1619861800
 Camera:
   m_ObjectHideFlags: 0
