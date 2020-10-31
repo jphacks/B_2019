@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.Video;
 using B83.Win32;
 
-public class videoLoader : MonoBehaviour
+public class VideoGenerator : MonoBehaviour
 {
-    public int s = 0;
-    [SerializeField]VideoPlayer player;
+    [SerializeField] AppVideo prefab;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -15,19 +14,20 @@ public class videoLoader : MonoBehaviour
     }
     void OnFiles(List<string> aFiles, POINT aPos)
     {
-        player.Stop();
+        prefab.OnGenerated();
+        prefab.Load(aFiles[0]);
+
         foreach (var file in aFiles)
         {
-            GenerateFromPath(file);
+           // GenerateFromPath(file);
         }
     }
 
     //https://qiita.com/seka/items/4197e97562b1f071b8af
-    public void GenerateFromPath(string path)
+    /*public void GenerateFromPath(string path)
     {
         player.url = path;
         player.Play();
-
-    }
+    }*/
 
 }

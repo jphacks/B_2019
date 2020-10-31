@@ -7,7 +7,6 @@ using TMPro;
 
 public class FileDragAndDrop : SingletonMonoBehaviour<FileDragAndDrop>
 {
-    [SerializeField] TextMeshProUGUI text;
     void OnEnable ()
     {
         // must be installed on the main thread to get the right thread id.
@@ -26,7 +25,16 @@ public class FileDragAndDrop : SingletonMonoBehaviour<FileDragAndDrop>
         string str = "Dropped " + aFiles.Count + " files at: " + aPos + "\n\t" +
             aFiles.Aggregate((a, b) => a + "\n\t" + b);
         Debug.Log(str);
-        text.text = str;
+        log.Add(str);
     }
 
+    List<string> log = new List<string>();
+    private void OnGUI()
+    {
+        if (GUILayout.Button("clear log"))
+            log.Clear();
+        foreach (var s in log)
+            GUILayout.Label(s);
+    }
 }
+

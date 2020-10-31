@@ -14,7 +14,7 @@ public class SpriteGenerator : MonoBehaviour
 
     void OnFiles(List<string> aFiles, POINT aPos)
     {
-        foreach(var file in aFiles)
+        foreach (var file in aFiles)
         {
             GenerateFromPath(file);
         }
@@ -40,11 +40,9 @@ public class SpriteGenerator : MonoBehaviour
         if (!CanGenerate(extention))
         {
             Debug.LogError("SpriteGenerator : file not supported");
-            log.Add("SpriteGenerator : file not supported");
             return;
         }
         Debug.Log($"SpriteGenerator : load {path}");
-        log.Add($"SpriteGenerator : load {path}");
 
 
         byte[] readBinary = ReadPngFile(path);
@@ -65,25 +63,16 @@ public class SpriteGenerator : MonoBehaviour
         Texture2D texture = new Texture2D(width, height);
         texture.LoadImage(readBinary);
 
-        prefab.sprite = Sprite.Create(texture, new Rect(0f,0f, width, height), new Vector2(0.5f, 0.5f),100f);
+        prefab.sprite = Sprite.Create(texture, new Rect(0f, 0f, width, height), new Vector2(0.5f, 0.5f), 100f);
     }
 
     public static bool CanGenerate(string extension)
     {
-        var ex=extension.ToLower();
+        var ex = extension.ToLower();
         if (ex == ".png") return true;
         return false;
     }
 
 
 
-
-    List<string> log = new List<string>();
-    private void OnGUI()
-    {
-        if (GUILayout.Button("clear log"))
-            log.Clear();
-        foreach (var s in log)
-            GUILayout.Label(s);
-    }
 }

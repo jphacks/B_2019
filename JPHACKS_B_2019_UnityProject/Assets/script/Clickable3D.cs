@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Clickable3D : MonoBehaviour
 {
-    Color defaultColor;
     Camera mainCamera;
-    Renderer renderer;
     Collider collider;
+
+    enum State
+    {
+        None,
+        Hit
+    }
+
+    State m_state = State.None;
+    public UnityEvent OnMouseOverIn { get; private set; } = new UnityEvent();
+    public UnityEvent OnMouseOverExit { get; private set; } = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
         collider = GetComponent<Collider>();
         mainCamera = Camera.main;
-        defaultColor = renderer.material.GetColor("_Color");
     }
 
     // Update is called once per frame
@@ -29,11 +36,19 @@ public class Clickable3D : MonoBehaviour
 
         if (is_hit && hit_info.collider == collider)
         {
-            renderer.material.SetColor("_Color", defaultColor * new Color(0.5f, 0.5f, 0.5f, 1.0f));
+            if (m_state==State.None)
+            {
+                OnMouseOverIn.Invoke();
+                m_state = State.Hit;
+            }
         }
         else
         {
-            renderer.material.SetColor("_Color", defaultColor);
+            if (m_state == State.Hit)
+            {
+                m_state = State.None;
+                OnMouseOverExit.Invoke();
+            }
         }
 
     }
