@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/OpenCVForUnity/Examples/MainModules/videoio/VideoWriterExample/VideoWriterExample.unity
+    guid: db4338c1b3c971f4a95279c2fdb80a81
   m_configObjects: {}
