@@ -24,23 +24,33 @@ public class CameraController : MonoBehaviour
     public bool reverse;
 
     // マウス座標を格納する変数
-    private Vector2 lastMousePosition;
+    [SerializeField] private Vector2 lastMousePosition;
     // カメラの角度を格納する変数（初期値に0,0を代入）
     private Vector2 newAngle = new Vector2(0, 0);
+    bool rotateFlag = false;
 
     [Header("Move")]
     public Mouse moveButton = Mouse.MIDDLE;
     public Vector2 moveSpeed;
-    private Vector2 lastMouseMovePosition;
+    [SerializeField]private Vector2 lastMouseMovePosition;
 
     [Header("Zoom")]
     public float zoomSpeed;
+
+    RuntimeGizmos.TransformGizmo runtimeGizmo;
+    private void Start()
+    {
+        runtimeGizmo = GetComponent<RuntimeGizmos.TransformGizmo>();
+    }
     // Update is called once per frame
     void Update()
     {
         Zoom();
         Move(moveButton);
-        Rotate(dragButton);
+        //オブジェクトを動かす座標軸が表示されてなければ
+        if (runtimeGizmo.mainTargetRoot == null)
+            Rotate(dragButton);
+        else rotateFlag = false;
     }
 
     void Move(Mouse button)
@@ -76,9 +86,10 @@ public class CameraController : MonoBehaviour
             newAngle = mainCamera.transform.localEulerAngles;
             // マウス座標を変数"lastMousePosition"に格納
             lastMousePosition = Input.mousePosition;
+            rotateFlag = true;
         }
         // 左ドラッグしている間
-        else if (Input.GetMouseButton((int)button))
+        else if (Input.GetMouseButton((int)button)&& rotateFlag)
         {
             float isReverse = reverse ? -1f : 1f;//reverseがtrueのときに反転されるための係数
 
@@ -96,6 +107,9 @@ public class CameraController : MonoBehaviour
             mainCamera.transform.localEulerAngles = newAngle;
             // マウス座標を変数"lastMousePosition"に格納
             lastMousePosition = Input.mousePosition;
+        }else if (Input.GetMouseButtonUp((int)button))
+        {
+            rotateFlag = false;
         }
     }
 }
