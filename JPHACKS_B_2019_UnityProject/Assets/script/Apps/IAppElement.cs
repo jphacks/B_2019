@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IAppElement 
 {
+    void Active(bool flag);
     void OnGenerated();
     void Close();
     void OnMouseOverIn();

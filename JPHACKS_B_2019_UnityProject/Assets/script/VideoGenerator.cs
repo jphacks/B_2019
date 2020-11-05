@@ -4,23 +4,35 @@ using UnityEngine;
 using UnityEngine.Video;
 using B83.Win32;
 
-public class VideoGenerator : MonoBehaviour
+public class VideoGenerator : SingletonMonoBehaviour<VideoGenerator>
 {
-    [SerializeField] AppVideo prefab;
+    [SerializeField] GameObject prefab = default;
+ public GameObject Prefab { get { return prefab; } }
+
+    readonly string[] extentions = {".mp4",".avi" }; 
+
     // Start is called before the first frame update
     void OnEnable()
     {
-        FileDragAndDrop.Instance.AddOnFiles(OnFiles);
+        FileDragAndDrop.Instance.AddOnFiles(OnFiles, extentions);
     }
-    void OnFiles(List<string> aFiles, POINT aPos)
+    void OnFiles(string file, POINT aPos)
     {
-        prefab.OnGenerated();
-        prefab.Load(aFiles[0]);
-
-        foreach (var file in aFiles)
+        if (prefab == null)
         {
-           // GenerateFromPath(file);
+            Debug.LogError("prefab not set");
+            return;
         }
+        var obj = Instantiate(prefab, transform).GetComponent<AppVideo>();
+        if (obj == null)
+        {
+            Debug.LogError("App video script not attached");
+            return;
+        }
+        obj.OnGenerated();
+        obj.Load(file);
+        AppManager.Instance.AddApp(obj.gameObject);
+        // GenerateFromPath(file);
     }
 
     //https://qiita.com/seka/items/4197e97562b1f071b8af

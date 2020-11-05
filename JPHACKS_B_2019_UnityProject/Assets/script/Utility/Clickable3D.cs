@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Collider))]
 public class Clickable3D : MonoBehaviour
 {
     Camera mainCamera;
-    Collider collider;
+    new Collider collider;
 
     enum State
     {
@@ -25,6 +26,8 @@ public class Clickable3D : MonoBehaviour
         mainCamera = Camera.main;
     }
 
+    bool isClicked = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -41,6 +44,14 @@ public class Clickable3D : MonoBehaviour
                 OnMouseOverIn.Invoke();
                 m_state = State.Hit;
             }
+           /* if (Input.GetMouseButtonDown(0))
+            {
+                isClicked = true;
+            }
+            if (isClicked)
+            {
+                MovePosition();
+            }*/
         }
         else
         {
@@ -52,4 +63,15 @@ public class Clickable3D : MonoBehaviour
         }
 
     }
+
+    void MovePosition()
+    {
+/*
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 10;
+
+        moveTo = Camera.main.ScreenToWorldPoint(mousePos);
+        transform.position = moveTo;*/
+    }
+
 }

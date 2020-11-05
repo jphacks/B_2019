@@ -7,20 +7,19 @@ using System.Linq;
 
 public class SpriteGenerator : MonoBehaviour
 {
+    [SerializeField] SpriteRenderer prefab = default;
+
+    readonly string[] extentions = { ".png" };
     void OnEnable()
     {
-        FileDragAndDrop.Instance.AddOnFiles(OnFiles);
+        FileDragAndDrop.Instance.AddOnFiles(OnFiles, extentions);
     }
 
-    void OnFiles(List<string> aFiles, POINT aPos)
+    void OnFiles(string file, POINT aPos)
     {
-        foreach (var file in aFiles)
-        {
-            GenerateFromPath(file);
-        }
+        GenerateFromPath(file);
     }
 
-    [SerializeField] SpriteRenderer prefab;
     byte[] ReadPngFile(string path)
     {
         FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
