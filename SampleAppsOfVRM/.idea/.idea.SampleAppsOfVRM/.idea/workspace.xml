@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="499f32d6-196f-45cf-b794-de5ac9613898" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/1. LoadVRM.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/1. LoadVRM.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TransformController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TransformController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TransformControllerRegister.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TransformControllerRegister.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/VRM.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/VRM.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
-    </list>
+    <list default="true" id="499f32d6-196f-45cf-b794-de5ac9613898" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/TransformControllerRegister.cs" />
+        <option value="$PROJECT_DIR$/Assets/OpenCVForUnity/Examples/MainModules/videoio/VideoWriterExample/VideoWriterExample.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TransformController.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1jul694hHmYiiszbPF4exEEZYzv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -71,6 +66,8 @@
       <option name="presentableId" value="Default" />
       <updated>1604661679692</updated>
       <workItem from="1604661693443" duration="4849000" />
+      <workItem from="1604671070539" duration="39000" />
+      <workItem from="1604671271039" duration="6328000" />
     </task>
     <servers />
   </component>
