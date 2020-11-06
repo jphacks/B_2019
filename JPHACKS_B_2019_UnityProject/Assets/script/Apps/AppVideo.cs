@@ -43,17 +43,15 @@ public class AppVideo : MonoBehaviour,IAppElement
         Player.url = path;
         Player.Play();
     }
-    public void Active(bool flag)
-    {
-
-    }
-    public void OnGenerated()
-    {
-    }
 
     public void Close()
     {
         Destroy(gameObject);
+    }
+    public void SwitchMute()
+    {
+        var flag = gameObject.activeSelf;
+        gameObject.SetActive(!flag);
     }
 
     public void OnMouseClicked()

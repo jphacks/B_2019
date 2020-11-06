@@ -29,6 +29,7 @@ public class FileDragAndDrop : SingletonMonoBehaviour<FileDragAndDrop>
         foreach(var extention in extentions)
         {
             m_OnDropFiles.Add(extention, func);
+        log.Add(extention);
         }
     }
 
@@ -36,7 +37,12 @@ public class FileDragAndDrop : SingletonMonoBehaviour<FileDragAndDrop>
     {
         foreach (var file in aFiles)
         {
-            string extention = Path.GetExtension(file);
+            string extention = Path.GetExtension(file).ToLower();
+            if (!m_OnDropFiles.ContainsKey(extention))
+            {
+                Debug.LogError($"this extention'{extention}' does not supported");
+                continue;
+            }
             m_OnDropFiles[extention](file, aPos);
         }
         // do something with the dropped file names. aPos will contain the 

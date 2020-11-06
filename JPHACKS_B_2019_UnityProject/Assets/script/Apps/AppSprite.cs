@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-/// <summary>
-/// 複数の動画を扱える
-/// 音声に応じて切り替えなど
-/// </summary>
-public class AppCharactor : MonoBehaviour, IAppElement
+public class AppSprite : MonoBehaviour,IAppElement
 {
-    List<AppVideo> m_videos = new List<AppVideo>();
-
-
-    // Start is called before the first frame update
+    SpriteRenderer m_renderer;
+    SpriteRenderer Renderer
+    {
+        get{
+            if(m_renderer==null)m_renderer = GetComponent<SpriteRenderer>();
+            return m_renderer;
+        }
+    }
+    Color m_defaultColor;
     void Start()
     {
+        m_defaultColor = Renderer.material.GetColor("_Color");
         var clickable = GetComponent<Clickable3D>();
         if (clickable == null)
         {
@@ -23,43 +24,35 @@ public class AppCharactor : MonoBehaviour, IAppElement
         }
         clickable.OnMouseOverIn.AddListener(OnMouseOverIn);
         clickable.OnMouseOverExit.AddListener(OnMouseOverExit);
-
+        var collider = GetComponent<BoxCollider>();
+        collider.size = new Vector3(Renderer.bounds.size.x, Renderer.bounds.size.y, 1);
     }
-    public void Load(string[] pathes)
+    public void Load(Sprite sprite)
     {
-        foreach(var path in pathes)
-        {
-
-        }
+        Renderer.sprite = sprite;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void Close()
     {
         Destroy(gameObject);
     }
     public void SwitchMute()
     {
-
         var flag = gameObject.activeSelf;
         gameObject.SetActive(!flag);
     }
 
     public void OnMouseClicked()
     {
+
     }
 
     public void OnMouseOverExit()
     {
+        Renderer.material.SetColor("_Color", m_defaultColor);
     }
 
     public void OnMouseOverIn()
     {
+        Renderer.material.SetColor("_Color", m_defaultColor * new Color(0.5f, 0.5f, 0.5f, 1.0f));
     }
-
 }

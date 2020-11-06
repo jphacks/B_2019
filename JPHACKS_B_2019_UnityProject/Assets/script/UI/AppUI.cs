@@ -23,4 +23,8 @@ public class AppUI : MonoBehaviour
         appElement.Close();
         Destroy(gameObject);
     }
+    public void OnMuteButtonPushed()
+    {
+        appElement.SwitchMute();
+    }
 }

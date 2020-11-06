@@ -4,9 +4,8 @@ using UnityEngine;
 
 public interface IAppElement 
 {
-    void Active(bool flag);
-    void OnGenerated();
     void Close();
+    void SwitchMute();
     void OnMouseOverIn();
     void OnMouseOverExit();
     void OnMouseClicked();

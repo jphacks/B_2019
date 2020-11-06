@@ -26,16 +26,16 @@ public class AppModel : MonoBehaviour,IAppElement
     {
 
     }
-    public void OnGenerated()
-    {
-
-    }
-
     public void Close()
     {
         Destroy(gameObject);
     }
+    public void SwitchMute()
+    {
 
+        var flag = gameObject.activeSelf;
+        gameObject.SetActive(!flag);
+    }
     public void OnMouseOverIn()
     {
         Debug.Log("mouse in");
@@ -51,10 +51,5 @@ public class AppModel : MonoBehaviour,IAppElement
     public void OnMouseClicked()
     {
 
-    }
-
-    public void Active(bool flag)
-    {
-        throw new System.NotImplementedException();
     }
 }

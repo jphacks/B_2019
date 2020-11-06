@@ -29,7 +29,6 @@ public class VideoGenerator : SingletonMonoBehaviour<VideoGenerator>
             Debug.LogError("App video script not attached");
             return;
         }
-        obj.OnGenerated();
         obj.Load(file);
         AppManager.Instance.AddApp(obj.gameObject);
         // GenerateFromPath(file);

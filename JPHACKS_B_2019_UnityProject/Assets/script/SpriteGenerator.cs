@@ -7,7 +7,7 @@ using System.Linq;
 
 public class SpriteGenerator : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer prefab = default;
+    [SerializeField] AppSprite prefab = default;
 
     readonly string[] extentions = { ".png" };
     void OnEnable()
@@ -61,8 +61,9 @@ public class SpriteGenerator : MonoBehaviour
 
         Texture2D texture = new Texture2D(width, height);
         texture.LoadImage(readBinary);
-
-        prefab.sprite = Sprite.Create(texture, new Rect(0f, 0f, width, height), new Vector2(0.5f, 0.5f), 100f);
+        var obj = Instantiate(prefab);
+        obj.Load(Sprite.Create(texture, new Rect(0f, 0f, width, height), new Vector2(0.5f, 0.5f), 100f));
+        AppManager.Instance.AddApp(obj.gameObject);
     }
 
     public static bool CanGenerate(string extension)

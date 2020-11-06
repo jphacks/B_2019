@@ -28,4 +28,11 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     {
 
     }
+
+    public void OffUI()
+    {
+
+    }
+
+
 }
