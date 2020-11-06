@@ -40,18 +40,6 @@ namespace KiliWare.SampleVRMApp
                 return;
             }
             
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                animator.runtimeAnimatorController =  (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load ("AnimatorControllers/AnimatorControllerDancing"));
-                //animation = Resources.Load<Animation>("Animations/Dancing");
-            }
-            if(Input.GetKeyDown(KeyCode.R))
-            {
-                animator.runtimeAnimatorController =
-                    null; //(RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load ("AnimatorControllers/DancingAnimatorController"));
-                //animation = Resources.Load<Animation>("Animations/Dancing");
-            }
-
             if (previousAnimatorControllerDrowdownValue != animatorControllerDropdown.value)
             {
                 previousAnimatorControllerDrowdownValue = animatorControllerDropdown.value;
