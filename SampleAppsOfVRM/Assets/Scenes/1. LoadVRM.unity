@@ -508,7 +508,7 @@ MonoBehaviour:
   previewPanel: {fileID: 1336698013}
   RecButton: {fileID: 703057210}
   PlayButton: {fileID: 1957507964}
-  savePathInputField: {fileID: 1272525499}
+  savePathInputField: {fileID: 0}
 --- !u!81 &165957007
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3423,7 +3423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1777432713
 MonoBehaviour:
   m_ObjectHideFlags: 0
