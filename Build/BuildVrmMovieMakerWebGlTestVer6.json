@@ -1,0 +1,16 @@
+{
+"companyName": "KiliWare",
+"productName": "VRMAppWebGLBuildSample",
+"productVersion": "1.0.0",
+"dataUrl": "BuildVrmMovieMakerWebGlTestVer6.data.unityweb",
+"wasmCodeUrl": "BuildVrmMovieMakerWebGlTestVer6.wasm.code.unityweb",
+"wasmFrameworkUrl": "BuildVrmMovieMakerWebGlTestVer6.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.13f1"
+}
