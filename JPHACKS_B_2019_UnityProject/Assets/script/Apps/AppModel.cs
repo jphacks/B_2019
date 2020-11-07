@@ -7,10 +7,13 @@ public class AppModel : MonoBehaviour,IAppElement
     Renderer m_renderer;
     Color m_defaultColor;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_renderer = GetComponent<Renderer>();
         m_defaultColor = m_renderer.material.GetColor("_Color");
+    }
+    void Start()
+    {
         Clickable3D clickable = GetComponent<Clickable3D>();
         if (clickable == null)
         {
@@ -23,6 +26,11 @@ public class AppModel : MonoBehaviour,IAppElement
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    public void Set(string path)
     {
 
     }

@@ -9,21 +9,16 @@ using UnityEngine;
 /// </summary>
 public class AppCharactor : MonoBehaviour, IAppElement
 {
-    List<AppVideo> m_videos = new List<AppVideo>();
 
+    [SerializeField] GameObject childOnNormal;
+    [SerializeField] GameObject childOnVoice;
+
+    List<AppVideo> m_videos = new List<AppVideo>();
 
     // Start is called before the first frame update
     void Start()
     {
-        var clickable = GetComponent<Clickable3D>();
-        if (clickable == null)
-        {
-            Debug.LogError("Clickable not found", gameObject);
-            return;
-        }
-        clickable.OnMouseOverIn.AddListener(OnMouseOverIn);
-        clickable.OnMouseOverExit.AddListener(OnMouseOverExit);
-
+        childOnVoice.SetActive(false);
     }
     public void Load(string[] pathes)
     {
@@ -39,13 +34,16 @@ public class AppCharactor : MonoBehaviour, IAppElement
 
     }
 
+    public void Set(string path)
+    {
+
+    }
     public void Close()
     {
         Destroy(gameObject);
     }
     public void SwitchMute()
     {
-
         var flag = gameObject.activeSelf;
         gameObject.SetActive(!flag);
     }
@@ -61,5 +59,13 @@ public class AppCharactor : MonoBehaviour, IAppElement
     public void OnMouseOverIn()
     {
     }
+    public void SetNormal(string path)
+    {
+        childOnNormal.GetComponent<AppVideo>().Set(path);
+    }
 
+    public void SetVoice(string path)
+    {
+        childOnVoice.GetComponent<AppVideo>().Set(path);
+    }
 }

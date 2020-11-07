@@ -18,6 +18,12 @@ public class VideoGenerator : SingletonMonoBehaviour<VideoGenerator>
     }
     void OnFiles(string file, POINT aPos)
     {
+        GenerateVideo(file);
+    }
+
+    public void GenerateVideo(string file)
+    {
+
         if (prefab == null)
         {
             Debug.LogError("prefab not set");
@@ -29,9 +35,8 @@ public class VideoGenerator : SingletonMonoBehaviour<VideoGenerator>
             Debug.LogError("App video script not attached");
             return;
         }
-        obj.Load(file);
+        obj.Set(file);
         AppManager.Instance.AddApp(obj.gameObject);
-        // GenerateFromPath(file);
     }
 
     //https://qiita.com/seka/items/4197e97562b1f071b8af

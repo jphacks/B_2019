@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class AppUI : MonoBehaviour
 {
-     public GameObject target;
+     public GameObject m_target;
     IAppElement appElement;
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    public void SetTarget(GameObject target)
+    {
         appElement = target.GetComponent<IAppElement>();
+        m_target = target;
     }
 
     // Update is called once per frame
@@ -26,5 +32,10 @@ public class AppUI : MonoBehaviour
     public void OnMuteButtonPushed()
     {
         appElement.SwitchMute();
+    }
+
+    public void SetTargetPath(string[] path)
+    {
+        appElement.Set(path[0]);
     }
 }

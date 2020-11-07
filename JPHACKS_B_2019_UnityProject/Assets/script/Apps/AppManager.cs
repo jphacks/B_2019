@@ -35,9 +35,18 @@ public class AppManager : SingletonMonoBehaviour<AppManager>
         m_items.Add(app);
         UIManager.Instance.AddAppUI(app);
     }
+    public void AddAppCharactor(GameObject app)
+    {
+        m_items.Add(app);
+        UIManager.Instance.AddAppUICharactor(app);
+    }
 
     public void GenerateApp(App app)
     {
 
+    }
+    public GameObject[] GetChildren()
+    {
+        return null;
     }
 }

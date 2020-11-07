@@ -18,14 +18,17 @@ public class AppVideo : MonoBehaviour,IAppElement
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_renderer = GetComponent<Renderer>();
         m_defaultColor = m_renderer.material.GetColor("_Color");
+    }
+    void Start()
+    {
         var clickable = GetComponent<Clickable3D>();
         if (clickable == null)
         {
-            Debug.LogError("Clickable not found",gameObject);
+            Debug.LogError("Clickable not found", gameObject);
             return;
         }
         clickable.OnMouseOverIn.AddListener(OnMouseOverIn);
@@ -38,8 +41,13 @@ public class AppVideo : MonoBehaviour,IAppElement
 
     }
 
-    public void Load(string path)
+    public void Set(string path)
     {
+        if (string.IsNullOrEmpty(path))
+        {
+            Debug.Log("path is empty");
+            return;
+        }
         Player.url = path;
         Player.Play();
     }

@@ -31,6 +31,10 @@ public class AppSprite : MonoBehaviour,IAppElement
     {
         Renderer.sprite = sprite;
     }
+    public void Set(string path)
+    {
+
+    }
     public void Close()
     {
         Destroy(gameObject);
