@@ -14,8 +14,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/TransformControllerRegister.cs" />
-        <option value="$PROJECT_DIR$/Assets/OpenCVForUnity/Examples/MainModules/videoio/VideoWriterExample/VideoWriterExample.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/TransformController.cs" />
+        <option value="$PROJECT_DIR$/Assets/OpenCVForUnity/Examples/MainModules/videoio/VideoWriterExample/VideoWriterExample.cs" />
       </list>
     </option>
   </component>
@@ -69,6 +69,7 @@
       <workItem from="1604671070539" duration="39000" />
       <workItem from="1604671271039" duration="7173000" />
       <workItem from="1604721956132" duration="2092000" />
+      <workItem from="1604730960030" duration="1178000" />
     </task>
     <servers />
   </component>
