@@ -136,7 +136,7 @@ namespace KiliWare.SampleVRMApp
                     animator.runtimeAnimatorController =  (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load ("AnimatorControllers/AnimatorControllerSittingClap"));
                     break;
                 case 8:
-                    animator.runtimeAnimatorController =  (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load ("AnimatorControllers/AnimatorControllerThumbsUp"));
+                    animator.runtimeAnimatorController =  (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load ("AnimatorControllers/AnimatorControllerSittingThumbsUp"));
                     break;
                 case 9:
                     animator.runtimeAnimatorController =  (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load ("AnimatorControllers/AnimatorControllerSittingYell"));
