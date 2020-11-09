@@ -57,9 +57,11 @@ https://github.com/Bunny83/UnityWindowsFileDrag-Drop
 ### [VTuber動画素材メーカーについて]
 
 パソコンから以下のURLを開くことで利用することができます。
+
 https://jphacks.github.io/B_2019/
 
 アプリを使用した動画です。
+
 https://www.youtube.com/watch?v=2mbrsGSZos8&list=PL9lQZ8nhFNHsnCN0xfGEf3-T9FFjXNn5R&index=12
 
 一言でいうと、VRMアバターを利用した動画素材を作成するブラウザツールです。
@@ -72,6 +74,13 @@ Unityを使い、ブラウザから動画をダウンロードさせるアプリ
 VRMを動かすアニメーションは、現在数十種類に限定されていますが、アプリ内のmixamoのアニメーションデータを内部で差し替えれば、数千種類のアニメーションにも対応することができます。
 VRMのアバターは無限のようにあり、VRoid Hubから好きなアバターをダウンロードしたり、VRoid Studioを使うことで、簡単にアバターを作成することができます。そのVRMデータを利用した動画を作成することができます。
 
+VRoid HubからVRMアバターをダウンロードしてください。
+
+https://hub.vroid.com/
+
+VRoid Studioを使うとVRMアバターを作成することができます。
+
+https://vroid.com/studio/
 
 ### [簡単動画VTuberについて]
 一言でいうと、動画をデスクトップにウィンドウ無しで表示するアプリです。
